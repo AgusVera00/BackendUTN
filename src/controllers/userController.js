@@ -27,3 +27,33 @@ export const get = async (req, res) => {
         res.status(500).json({ message: "Internal server error", error  });
     };
 };
+
+
+export const deleteUser = async (req, res) => {
+    try {
+        const _id = req.params.id;
+        const userExists = await User.findOne ({_id});
+        if (!userExists) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        await User.findByIdAndDelete(_id);
+        return res.status(200).json({ message: "User deleted" });
+    }
+    catch (error) {
+        res.status(500).json({ error: "Internal server error"});
+    }
+}
+
+export const updateUser = async (req, res) => {
+    try {
+    const _id = req.params.id;
+    const userExists = await User.findOne ({_id});
+    if (!userExists) {
+        return res.status(404).json({ message: "User not found" });
+    }
+    const updatedUser = await User.findByIdAndUpdate(_id, req.body, { new: true });
+    res.status(200).json({ message: "User updated", data: updatedUser });
+    } catch (error) {
+        res.status(500).json({ error: "Internal server error"});
+    }
+}
