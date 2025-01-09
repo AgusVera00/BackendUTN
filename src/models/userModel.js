@@ -1,4 +1,4 @@
-import { register } from "module";
+import { isGoodPassword } from "../utils/validator.js";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
@@ -44,11 +44,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         validate: { 
          validator: function (value) {
-            return isGoodPassword(value);}
-        },
-        message: "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number",
+            return isGoodPassword(value);},
+        
+         message: "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number",
 
         required: true,
+        },
     },
 });
 

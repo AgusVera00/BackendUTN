@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 connectDB();
 
+// http://localhost:3000/api/user
 app.use("/api/user", userRoute);
 
 app.listen(PORT, () => {
